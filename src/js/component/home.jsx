@@ -9,6 +9,7 @@ const Home = () => {
 		<div className="text-center">
 			<h1 className="text-center mt-5">Tododlist</h1>
 			<Todolist/>
+			
 		</div>
 	);
 };
