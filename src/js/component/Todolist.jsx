@@ -7,10 +7,6 @@ const Todolist = () =>{
 
     const [tareas, setTareas] = useState([]);
     const [nuevaTarea, setNuevaTarea] = useState("");
-    const [borrarTarea, setBorrarTarea] = useState();
-    
-
-    
     
     // funcion que nos crea el ususario Javi metodo POST
     async function  crearUsuario (){
@@ -60,15 +56,7 @@ const Todolist = () =>{
 
 
         //Funcion que borra las tareas (Metodo delete)
-        async function borrarTarea() {
-            const uri = `${host}/todos/${user}/${id}`;
-            const options = { method: "DELETE" };
-            const response = await fetch(uri, options);
-        };
-    
-
-        
-
+       
             //manejo errores
             if (!response.ok) {
                 console.log("error",response.status,response.statusText);
@@ -81,6 +69,11 @@ const Todolist = () =>{
         setTareas(data.todos);
 
     };
+     async function borrarTarea(id) {
+            const uri = `${host}/todos/${id}`;
+            const options = { method: "DELETE",headers:{accept: 'accept: application/json'} };
+            const response = await fetch(uri, options);
+        };
 
     useEffect(()=>{
         crearUsuario();
@@ -97,14 +90,14 @@ const Todolist = () =>{
             onChange={(evento)=>setNuevaTarea(evento.target.value)}
              />
             <button onClick={()=>crearTareas()}>Crear Tarea</button>
-                <ul className="list-group">
+                <div className="list-group">
                     {tareas.map((item) =>
                     <div>
                     <li className="list-group-item">{item.label}</li> 
-                    <button onClick={() => borrarTarea(item.id)}>Borrar</button>
+                    <button onClick={() => borrarTarea(item.id)} className="col-3"><i class="fa-solid fa-circle-xmark"></i></button>
                     </div>)}
 
-                </ul>
+                </div>
         </div>
     )
 
