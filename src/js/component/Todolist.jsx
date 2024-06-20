@@ -9,9 +9,9 @@ const Todolist = () =>{
     const [nuevaTarea, setNuevaTarea] = useState("");
 
     // funcion botn enter
-    const handleKeyPress = (event,tarea) =>{
+    const handleKeyPress = (event) =>{
         if(event.key==="Enter"){
-            crearTareas(tarea)
+            crearTareas(nuevaTarea)
         }
         
 
@@ -101,6 +101,7 @@ const Todolist = () =>{
             value={nuevaTarea}
             placeholder="Escribe la tarea"
             onChange={(evento)=>setNuevaTarea(evento.target.value)}
+            onKeyDown={handleKeyPress}
              />
             <button onClick={()=>(crearTareas(nuevaTarea))} onKeyDown={handleKeyPress(nuevaTarea)}>Crear Tarea</button>
                 <div className="list-group ">
