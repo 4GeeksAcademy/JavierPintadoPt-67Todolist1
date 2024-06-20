@@ -7,6 +7,16 @@ const Todolist = () =>{
 
     const [tareas, setTareas] = useState([]);
     const [nuevaTarea, setNuevaTarea] = useState("");
+
+    // funcion botn enter
+    const handleKeyPress = (event,tarea) =>{
+        if(event.key==="Enter"){
+            crearTareas(tarea)
+        }
+        
+
+
+    }
     
     // funcion que nos crea el ususario Javi metodo POST
     async function  crearUsuario (){
@@ -23,9 +33,9 @@ const Todolist = () =>{
     };
 
     // funcion que crea tareas metodo POST
-    async function  crearTareas (){
+    async function  crearTareas (tarea){
         const uri = `${host}/todos/${user}`;
-        const todo = {label: nuevaTarea,is_done:false};
+        const todo = {label:tarea,is_done:false};
         const options = {
             method: "POST",
             headers: {"Content-type":"application/json"},
@@ -40,8 +50,8 @@ const Todolist = () =>{
             console.log("error",response.status,response.statusText);
 
         };
-        setNuevaTarea("");
-        traerTareas();
+        setNuevaTarea("");// cuando creo la tarea limpio input
+        traerTareas();  // fetch trae todas las tareas
     };
 
 
@@ -55,7 +65,7 @@ const Todolist = () =>{
         const response = await fetch(uri, options);
 
 
-        //Funcion que borra las tareas (Metodo delete)
+        
        
             //manejo errores
             if (!response.ok) {
@@ -69,10 +79,13 @@ const Todolist = () =>{
         setTareas(data.todos);
 
     };
+    //Funcion que borra las tareas (Metodo delete)
      async function borrarTarea(id) {
             const uri = `${host}/todos/${id}`;
             const options = { method: "DELETE",headers:{accept: 'accept: application/json'} };
             const response = await fetch(uri, options);
+            traerTareas();
+
         };
 
     useEffect(()=>{
@@ -82,21 +95,20 @@ const Todolist = () =>{
 
     // html 
     return (
-        <div className="container text-center  col-4 mt-3clae">
+        <div className="container text-center  col-4 mt-3">
             <input 
             type="text"
             value={nuevaTarea}
             placeholder="Escribe la tarea"
             onChange={(evento)=>setNuevaTarea(evento.target.value)}
              />
-            <button onClick={()=>crearTareas()}>Crear Tarea</button>
-                <div className="list-group">
+            <button onClick={()=>(crearTareas(nuevaTarea))} onKeyDown={handleKeyPress(nuevaTarea)}>Crear Tarea</button>
+                <div className="list-group ">
                     {tareas.map((item) =>
-                    <div>
-                    <li className="list-group-item">{item.label}</li> 
-                    <button onClick={() => borrarTarea(item.id)} className="col-3"><i class="fa-solid fa-circle-xmark"></i></button>
+                    <div className="tareas row">
+                     <li className="list-group-item col-1">{item.label}</li>
+                     <button onClick={() => borrarTarea(item.id)} className="col-3 botonBorrar"><i class="fa-solid fa-circle-xmark"></i></button>
                     </div>)}
-
                 </div>
         </div>
     )
