@@ -1,7 +1,11 @@
-/*.botonBorrar{
-    display:none;
+.botonBorrar{
+    display: none;
+    border: none;
+    cursor: pointer;
+    background: none;
 }
 
- .tareas:hover + .botonBorrar{
-    display:block;
- }*/
+ .list-group-item:hover .botonBorrar{
+    display:inline-block;
+ }
+ 

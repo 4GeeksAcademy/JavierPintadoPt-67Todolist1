@@ -104,12 +104,21 @@ const Todolist = () =>{
             onKeyDown={handleKeyPress}
              />
             <button onClick={()=>(crearTareas(nuevaTarea))} onKeyDown={handleKeyPress(nuevaTarea)}>Crear Tarea</button>
-                <div className="list-group ">
-                    {tareas.map((item) =>
-                    <div className="tareas row">
-                     <li className="list-group-item col-1">{item.label}</li>
-                     <button onClick={() => borrarTarea(item.id)} className="col-3 botonBorrar"><i class="fa-solid fa-circle-xmark"></i></button>
-                    </div>)}
+                <div className=" ">
+                    {tareas.length === 0 ? (
+          <p>No hay tareas, añadir tareas</p>
+        ) : (tareas.map((item) =>
+            <div className="tareas row">
+                <li className=" text-center list-group-item col-12">{item.label}
+                <button 
+                    onClick={() => borrarTarea(item.id)} 
+                    className="col-1 botonBorrar">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </button>
+                </li>
+               
+            </div>)) }
+
                 </div>
         </div>
     )
