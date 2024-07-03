@@ -13,9 +13,6 @@ const Todolist = () =>{
         if(event.key==="Enter"){
             crearTareas(nuevaTarea)
         }
-        
-
-
     }
     
     // funcion que nos crea el ususario Javi metodo POST
@@ -95,7 +92,7 @@ const Todolist = () =>{
 
     // html 
     return (
-        <div className="container text-center  col-4 mt-3">
+        <form className="container text-center  col-4 mt-3">
             <input 
             type="text"
             value={nuevaTarea}
@@ -120,7 +117,7 @@ const Todolist = () =>{
             </div>)) }
 
                 </div>
-        </div>
+        </form>
     )
 
 }
